@@ -1,0 +1,12 @@
+.root {
+  padding: 24px;
+
+  &Header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    &Search {
+      max-width: 300px;
+    }
+  }
+}
