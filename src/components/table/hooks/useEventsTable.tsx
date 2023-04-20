@@ -9,34 +9,40 @@ export const columns: ColumnsType<Event> = [
     dataIndex: "title",
     key: "title",
     className: "columnsTitle",
+    width: 350,
   },
   {
     title: "TYPE",
     dataIndex: "type",
     key: "type",
     render: (_, { type }) => <EventTypeStamp type={type} />,
+    width: 150,
   },
   {
     title: "START DATE",
     dataIndex: "startDate",
     key: "startDate",
     render: (date) => new Date(date).toLocaleDateString(),
+    width: 200,
   },
   {
     title: "END DATE",
     dataIndex: "endDate",
     key: "endDate",
     render: (date) => new Date(date).toLocaleDateString(),
+    width: 200,
   },
   {
     title: "DESCRIPTION",
     dataIndex: "description",
     key: "description",
+    width: 370,
   },
   {
     title: "ACTIONS",
     dataIndex: "actions",
     key: "actions",
+    align: "right",
   },
 ];
 
