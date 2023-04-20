@@ -1,5 +1,7 @@
 import type { ColumnsType } from "antd/es/table";
+import { EventType } from "../../../data/enums";
 import { Event } from "../../../data/types";
+import { EventTypeStamp } from "../components/event-type-stamp";
 
 export const columns: ColumnsType<Event> = [
   {
@@ -12,16 +14,19 @@ export const columns: ColumnsType<Event> = [
     title: "TYPE",
     dataIndex: "type",
     key: "type",
+    render: (_, { type }) => <EventTypeStamp type={type} />,
   },
   {
     title: "START DATE",
     dataIndex: "startDate",
     key: "startDate",
+    render: (date) => new Date(date).toLocaleDateString(),
   },
   {
     title: "END DATE",
     dataIndex: "endDate",
     key: "endDate",
+    render: (date) => new Date(date).toLocaleDateString(),
   },
   {
     title: "DESCRIPTION",
@@ -39,7 +44,7 @@ export const data: Event[] = [
   {
     id: "1",
     title: "Start of the year",
-    type: "generic",
+    type: EventType.GENERIC,
     startDate: "2022-01-01",
     endDate: "2022-12-01",
     description: "This is an event about the start of this year",
@@ -47,7 +52,7 @@ export const data: Event[] = [
   {
     id: "2",
     title: "Mediagenix holiday",
-    type: "holiday",
+    type: EventType.HOLIDAY,
     startDate: "2022-04-04",
     endDate: "2022-04-05",
     description: "Celebrating Mediagenix",
