@@ -14,26 +14,28 @@ const App: React.FC = () => {
     useToggleState(false);
 
   return (
-    <div className="root">
-      <div className="rootHeader">
-        <Search
-          placeholder="Search events"
-          onSearch={onSearch}
-          enterButton
-          className="rootHeaderSearch"
-        />
-        <Button type="primary" onClick={setCreateEventModalShown}>
-          Create event
-        </Button>
-        {createEventModalShown && (
-          <CreateEventModal
-            createEventModalShown={createEventModalShown}
-            setCreateEventModalShown={setCreateEventModalShown}
+    <>
+      <div className="root">
+        <div className="rootHeader">
+          <Search
+            placeholder="Search events"
+            onSearch={onSearch}
+            enterButton
+            className="rootHeaderSearch"
           />
-        )}
+          <Button type="primary" onClick={setCreateEventModalShown}>
+            Create event
+          </Button>
+        </div>
+        <EventsTable />
       </div>
-      <EventsTable />
-    </div>
+      {createEventModalShown && (
+        <CreateEventModal
+          createEventModalShown={createEventModalShown}
+          setCreateEventModalShown={setCreateEventModalShown}
+        />
+      )}
+    </>
   );
 };
 

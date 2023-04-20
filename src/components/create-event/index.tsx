@@ -1,5 +1,6 @@
 import React from "react";
-import { Modal } from "antd";
+import { Form, Modal } from "antd";
+import { EventForm } from "../shared/event-form";
 
 interface CreateEventModalProps {
   createEventModalShown: boolean;
@@ -10,21 +11,31 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
   createEventModalShown,
   setCreateEventModalShown,
 }) => {
+  const [form] = Form.useForm();
+
   const handleCancel = () => {
     setCreateEventModalShown();
   };
-  const handleSuccess = () => {
+  const handleSubmit = () => {
     setCreateEventModalShown();
   };
 
   return (
-    <Modal
-      title="Create event"
-      open={createEventModalShown}
-      onCancel={handleCancel}
-      onOk={handleSuccess}
+    <Form
+      layout="vertical"
+      form={form}
+      name="create-event"
+      onFinish={handleSubmit}
     >
-      hello
-    </Modal>
+      <Modal
+        title="Create event"
+        open={createEventModalShown}
+        onCancel={handleCancel}
+        onOk={form.submit}
+        okText="Create"
+      >
+        <EventForm />
+      </Modal>
+    </Form>
   );
 };
