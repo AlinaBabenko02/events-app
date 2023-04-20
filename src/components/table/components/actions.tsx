@@ -2,7 +2,7 @@ import React from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { DeleteEventModal } from "./delete-event-modal";
-import { useToggleState } from "../../../utils/useToggleState";
+import { useToggleState } from "../../../data/utils/useToggleState";
 import { EditEventModal } from "./edit-event-modal";
 
 export const Actions: React.FC<{ id: string }> = ({ id }) => {

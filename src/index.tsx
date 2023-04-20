@@ -4,7 +4,7 @@ import { ConfigProvider } from "antd";
 import "./index.css";
 import App from "./components";
 import reportWebVitals from "./reportWebVitals";
-import { antdTheme } from "./utils/theme";
+import { antdTheme } from "./data/utils/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
