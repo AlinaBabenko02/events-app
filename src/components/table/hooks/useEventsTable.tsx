@@ -2,6 +2,7 @@ import type { ColumnsType } from "antd/es/table";
 import { EventType } from "../../../data/enums";
 import { Event } from "../../../data/types";
 import { EventTypeStamp } from "../components/event-type-stamp";
+import { Actions } from "../components/actions";
 
 export const columns: ColumnsType<Event> = [
   {
@@ -42,7 +43,8 @@ export const columns: ColumnsType<Event> = [
     title: "ACTIONS",
     dataIndex: "actions",
     key: "actions",
-    align: "right",
+    align: "center",
+    render: (_, { id }) => <Actions id={id} />,
   },
 ];
 
