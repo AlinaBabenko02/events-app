@@ -38,6 +38,7 @@ export const Actions: React.FC<{ event: Event }> = ({ event }) => {
       <DeleteEventModal
         deleteEventModalShown={deleteEventModalShown}
         setDeleteEventModalShown={setDeleteEventModalShown}
+        eventId={event.id}
       />
     </>
   );

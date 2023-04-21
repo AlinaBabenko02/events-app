@@ -15,3 +15,6 @@ export const editEvent = async (
   id: string,
   body: CreateEventBody
 ): Promise<EventType> => await (await axios.patch(`/events/${id}`, body)).data;
+
+export const deleteEvent = async (id: string): Promise<void> =>
+  await axios.delete(`/events/${id}`);

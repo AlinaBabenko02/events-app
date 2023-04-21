@@ -36,4 +36,12 @@ export const handlers = [
       ctx.delay(1000)
     );
   }),
+
+  rest.delete("/events/:id", async (req, res, ctx) => {
+    const eventId = req.params.id;
+    const eventIndex = events.findIndex((event) => event.id === eventId);
+    events.splice(eventIndex, 1);
+
+    return res(ctx.status(204), ctx.delay(1000));
+  }),
 ];

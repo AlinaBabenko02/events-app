@@ -4,7 +4,12 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
-import { fetchEvents, createEvent, editEvent } from "./actions-query";
+import {
+  fetchEvents,
+  createEvent,
+  editEvent,
+  deleteEvent,
+} from "./actions-query";
 import { eventsKeys } from "./hook-keys";
 import { Event as EventType, CreateEventBody } from "../types";
 
@@ -35,6 +40,20 @@ export const useEditEvent = (
 > => {
   const queryClient = useQueryClient();
   return useMutation(({ values }) => editEvent(id, values), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(eventsKeys.all());
+    },
+  });
+};
+
+export const useDeleteEvent = (): UseMutationResult<
+  void,
+  Error,
+  { id: string },
+  unknown
+> => {
+  const queryClient = useQueryClient();
+  return useMutation(({ id }) => deleteEvent(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(eventsKeys.all());
     },
