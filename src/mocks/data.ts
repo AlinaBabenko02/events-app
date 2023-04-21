@@ -1,8 +1,9 @@
 import { Event } from "../data/types";
 import { EventType } from "../data/enums";
 import { faker } from "@faker-js/faker";
+import { getUniqueId } from "../data/utils/getUniqueId";
 
-export const events: Event[] = Array(10)
+export const eventsData: Event[] = Array(10)
   .fill(0)
   .map((_, i) => {
     const [startDate, endDate] = faker.date.betweens(
@@ -11,7 +12,7 @@ export const events: Event[] = Array(10)
       2
     );
     return {
-      id: i.toString(),
+      id: getUniqueId(),
       title: faker.lorem.words(),
       type: faker.helpers.arrayElement([
         EventType.COMPETITOR,
