@@ -13,7 +13,7 @@ const EventTypeStampLabel = {
   [EventType.COMPETITOR]: "Competitor event",
   [EventType.GENERIC]: "Generic event",
   [EventType.HOLIDAY]: "Public holidays",
-  [EventType.LAUNCH]: "customContent launch",
+  [EventType.LAUNCH]: "Content launch",
 };
 
 export const EventTypeStamp: React.FC<{ type: EventType }> = ({ type }) => {
