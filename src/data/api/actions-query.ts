@@ -1,5 +1,10 @@
 import axios from "axios";
-import { Event as EventType, CreateEventBody } from "../types";
+import { Event as EventType, CreateEventBody, SchemaField } from "../types";
+
+export const fetchEventSchema = async (): Promise<SchemaField[]> =>
+  await (
+    await axios.get("/event-schema")
+  ).data;
 
 export const fetchEvents = async (): Promise<EventType[]> =>
   await (

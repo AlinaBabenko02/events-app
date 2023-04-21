@@ -1,61 +1,63 @@
 import React from "react";
 import { useIsMutating } from "react-query";
-import { Form, Input, Select, DatePicker } from "antd";
-import { EventType } from "../../data/enums";
+import { Form, Input, Select, DatePicker, Skeleton } from "antd";
+import { useEventSchema } from "../../data/api/hooks";
+import { EventTypeOption, SchemaField } from "../../data/types";
+import { InputComponents, RenderSchemaPlaces } from "../../data/enums";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-interface eventTypeOption {
-  value: EventType;
-  label: string;
+interface InputComponentType {
+  field: SchemaField;
+  disabled: boolean;
 }
 
-const eventTypeOptions: eventTypeOption[] = [
-  { value: EventType.COMPETITOR, label: "Competitor event" },
-  { value: EventType.GENERIC, label: "Generic event" },
-  { value: EventType.HOLIDAY, label: "Public holidays" },
-  { value: EventType.LAUNCH, label: "Content launch" },
-];
+const fieldToInputComponent: {
+  [key in InputComponents]: React.FC<InputComponentType>;
+} = {
+  [InputComponents.TEXT_INPUT]: ({ ...props }) => <Input {...props} />,
+  [InputComponents.SELECT]: ({ ...props }) => (
+    <Select {...props}>
+      {props.field.options &&
+        props.field.options.map((option: EventTypeOption) => (
+          <Option value={option.value}>{option.label}</Option>
+        ))}
+    </Select>
+  ),
+  [InputComponents.RANGE_PICKER]: ({ ...props }) => (
+    <RangePicker format="YYYY-MM-DD" style={{ width: "100%" }} {...props} />
+  ),
+  [InputComponents.TEXTAREA]: ({ ...props }) => (
+    <TextArea rows={4} {...props} />
+  ),
+};
 
 export const EventForm: React.FC = () => {
+  const { data: eventSchema, isLoading: eventSchemaLoading } = useEventSchema();
   const isMutating = !!useIsMutating();
 
-  return (
+  return !eventSchemaLoading ? (
     <div>
-      <Form.Item
-        label="Title"
-        name="title"
-        rules={[{ required: true, message: "Required" }]}
-      >
-        <Input disabled={isMutating} />
-      </Form.Item>
-      <Form.Item
-        label="Type"
-        name="type"
-        rules={[{ required: true, message: "Required" }]}
-      >
-        <Select disabled={isMutating}>
-          {eventTypeOptions.map((option) => (
-            <Option value={option.value}>{option.label}</Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label="Date"
-        name="date"
-        rules={[{ required: true, message: "Required" }]}
-      >
-        <RangePicker
-          format="YYYY-MM-DD"
-          style={{ width: "100%" }}
-          disabled={isMutating}
-        />
-      </Form.Item>
-      <Form.Item label="Description" name="description">
-        <TextArea rows={4} disabled={isMutating} />
-      </Form.Item>
+      {eventSchema
+        ?.filter((field) => field.render.includes(RenderSchemaPlaces.FORM))
+        .map((field, i) => {
+          const InputComponent: React.FC<InputComponentType> =
+            fieldToInputComponent[field.component];
+          return (
+            <Form.Item
+              key={`${field.label}-${i}`}
+              label={field.label}
+              name={field.name}
+              rules={[{ required: field?.required, message: "Required" }]}
+            >
+              <InputComponent field={field} disabled={isMutating} />
+            </Form.Item>
+          );
+        })}
     </div>
+  ) : (
+    <Skeleton />
   );
 };

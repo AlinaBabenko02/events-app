@@ -5,13 +5,17 @@ import {
   useQueryClient,
 } from "react-query";
 import {
+  fetchEventSchema,
   fetchEvents,
   createEvent,
   editEvent,
   deleteEvent,
 } from "./actions-query";
 import { eventsKeys } from "./hook-keys";
-import { Event as EventType, CreateEventBody } from "../types";
+import { Event as EventType, CreateEventBody, SchemaField } from "../types";
+
+export const useEventSchema = () =>
+  useQuery<SchemaField[], Error>(eventsKeys.schema(), fetchEventSchema);
 
 export const useEvents = () =>
   useQuery<EventType[], Error>(eventsKeys.all(), fetchEvents);

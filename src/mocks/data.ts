@@ -1,7 +1,69 @@
-import { Event } from "../data/types";
-import { EventType } from "../data/enums";
+import { Event, SchemaField } from "../data/types";
+import { EventType, InputComponents, RenderSchemaPlaces } from "../data/enums";
 import { faker } from "@faker-js/faker";
 import { getUniqueId } from "../data/utils/getUniqueId";
+
+export const eventSchema: SchemaField[] = [
+  {
+    name: "title",
+    label: "Title",
+    required: true,
+    render: [RenderSchemaPlaces.FORM, RenderSchemaPlaces.TABLE],
+    component: InputComponents.TEXT_INPUT,
+  },
+  {
+    name: "type",
+    label: "Type",
+    required: true,
+    render: [RenderSchemaPlaces.FORM, RenderSchemaPlaces.TABLE],
+    component: InputComponents.SELECT,
+    options: [
+      {
+        label: "Competitor event",
+        value: EventType.COMPETITOR,
+      },
+      {
+        label: "Generic event",
+        value: EventType.GENERIC,
+      },
+      {
+        label: "Public holidays",
+        value: EventType.HOLIDAY,
+      },
+      {
+        label: "Content launch",
+        value: EventType.LAUNCH,
+      },
+    ],
+  },
+  {
+    name: "starDate",
+    label: "Start date",
+    required: true,
+    render: [RenderSchemaPlaces.TABLE],
+    component: InputComponents.RANGE_PICKER,
+  },
+  {
+    name: "endDate",
+    label: "End date",
+    required: true,
+    render: [RenderSchemaPlaces.TABLE],
+    component: InputComponents.RANGE_PICKER,
+  },
+  {
+    name: "date",
+    label: "Date",
+    required: true,
+    render: [RenderSchemaPlaces.FORM],
+    component: InputComponents.RANGE_PICKER,
+  },
+  {
+    name: "description",
+    label: "Description",
+    render: [RenderSchemaPlaces.FORM, RenderSchemaPlaces.TABLE],
+    component: InputComponents.TEXTAREA,
+  },
+];
 
 export const eventsData: Event[] = Array(10)
   .fill(0)

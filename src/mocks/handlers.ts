@@ -1,10 +1,18 @@
 import { rest } from "msw";
 import { getUniqueId } from "./../data/utils/getUniqueId";
-import { eventsData } from "./data";
+import { eventSchema, eventsData } from "./data";
 
 let events = eventsData;
 
 export const handlers = [
+  rest.get("/event-schema", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.body(JSON.stringify(eventSchema)),
+      ctx.delay(1000)
+    );
+  }),
+
   rest.get("/events", (req, res, ctx) => {
     return res(
       ctx.status(200),
