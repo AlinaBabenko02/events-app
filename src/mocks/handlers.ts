@@ -26,8 +26,9 @@ export const handlers = [
 
   rest.patch("/events/:id", async (req, res, ctx) => {
     const eventId = req.params.id;
-    const updatedEvent = await req.json();
+    const eventBody = await req.json();
     const eventIndex = events.findIndex((event) => event.id === eventId);
+    const updatedEvent = { ...events[eventIndex], ...eventBody };
     events[eventIndex] = updatedEvent;
 
     return res(

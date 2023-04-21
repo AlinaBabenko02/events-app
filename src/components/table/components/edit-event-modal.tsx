@@ -35,10 +35,11 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
   };
 
   const handleSubmit = (values: EventFormFields) => {
+    const { date, ...newValues } = values;
     editEvent(
       {
         values: {
-          ...values,
+          ...newValues,
           startDate: values.date[0].toString(),
           endDate: values.date[1].toString(),
         },
