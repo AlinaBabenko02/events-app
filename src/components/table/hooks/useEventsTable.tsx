@@ -1,69 +1,66 @@
-import type { ColumnsType } from "antd/es/table";
+import { ReactNode } from "react";
+import type { ColumnsType, ColumnType } from "antd/es/table";
 import { Event } from "../../../data/types";
 import { EventTypeStamp } from "../components/event-type-stamp";
 import { Actions } from "../components/actions";
-import { useEvents } from "../../../data/api/hooks";
+import { useEvents, useEventSchema } from "../../../data/api/hooks";
+import { RenderSchemaPlaces } from "../../../data/enums";
 
-export const columns: ColumnsType<Event> = [
-  {
-    title: "TITLE",
-    dataIndex: "title",
-    key: "title",
-    className: "columnsTitle",
-    width: 350,
-  },
-  {
-    title: "TYPE",
-    dataIndex: "type",
-    key: "type",
-    render: (_, { type }) => <EventTypeStamp type={type} />,
-    width: 150,
-  },
-  {
-    title: "START DATE",
-    dataIndex: "startDate",
-    key: "startDate",
-    render: (date) => new Date(date).toLocaleDateString(),
-    width: 200,
-  },
-  {
-    title: "END DATE",
-    dataIndex: "endDate",
-    key: "endDate",
-    render: (date) => new Date(date).toLocaleDateString(),
-    width: 200,
-  },
-  {
-    title: "DESCRIPTION",
-    dataIndex: "description",
-    key: "description",
-    width: 370,
-  },
-  {
-    title: "ACTIONS",
-    dataIndex: "actions",
-    key: "actions",
-    align: "center",
-    render: (_, event) => <Actions event={event} />,
-  },
-];
+const columnRenderComponent: {
+  [key: string]: (text: string, record: Event) => ReactNode;
+} = {
+  type: (_, { type }) => <EventTypeStamp type={type} />,
+  startDate: (date) => new Date(date).toLocaleDateString(),
+  endDate: (date) => new Date(date).toLocaleDateString(),
+};
+
+const columnWidth: {
+  [key: string]: number;
+} = {
+  title: 350,
+  type: 150,
+  startDate: 200,
+  endDate: 200,
+  description: 370,
+};
+
+const actionsColumn: ColumnType<Event> = {
+  title: "ACTIONS",
+  dataIndex: "actions",
+  key: "actions",
+  render: (_, event) => <Actions event={event} />,
+};
 
 interface UseEventsTableValues {
-  table: {
-    columns: ColumnsType<Event>;
-    events?: Event[];
-    eventsLoading: boolean;
-  };
+  columns: ColumnsType<Event>;
+  events?: Event[];
+  loading: boolean;
 }
 
 export const useEventsTable = (): UseEventsTableValues => {
+  const { data: eventSchema, isLoading: eventSchemaLoading } = useEventSchema();
   const { data: events, isLoading: eventsLoading } = useEvents();
+  const loading = eventSchemaLoading || eventsLoading;
+
+  const columns: ColumnsType<Event> = eventSchema
+    ? eventSchema
+        ?.filter((field) => field.render.includes(RenderSchemaPlaces.TABLE))
+        .map((field) => {
+          return {
+            title: field.label.toUpperCase(),
+            dataIndex: field.name,
+            key: field.name,
+            width: columnWidth[field.name],
+            render: columnRenderComponent[field.name],
+          };
+        })
+    : [];
+
+  columns.push(actionsColumn);
 
   return {
-    table: {
-      columns,
-      events,
-      eventsLoading,
-    },
+    columns,
+    events,
+    loading,
   };
 };

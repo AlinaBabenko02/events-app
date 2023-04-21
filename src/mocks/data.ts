@@ -37,16 +37,14 @@ export const eventSchema: SchemaField[] = [
     ],
   },
   {
-    name: "starDate",
+    name: "startDate",
     label: "Start date",
-    required: true,
     render: [RenderSchemaPlaces.TABLE],
     component: InputComponents.RANGE_PICKER,
   },
   {
     name: "endDate",
     label: "End date",
-    required: true,
     render: [RenderSchemaPlaces.TABLE],
     component: InputComponents.RANGE_PICKER,
   },
