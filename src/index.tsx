@@ -1,19 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ConfigProvider } from "antd";
+import { QueryClient, QueryClientProvider } from "react-query";
 import "./index.css";
 import App from "./components";
 import reportWebVitals from "./reportWebVitals";
 import { antdTheme } from "./data/utils/theme";
+import { worker } from "./mocks/browser";
+
+worker.start();
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ConfigProvider theme={antdTheme}>
-      <App />
-    </ConfigProvider>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider theme={antdTheme}>
+        <App />
+      </ConfigProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

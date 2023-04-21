@@ -1,8 +1,8 @@
 import type { ColumnsType } from "antd/es/table";
-import { EventType } from "../../../data/enums";
 import { Event } from "../../../data/types";
 import { EventTypeStamp } from "../components/event-type-stamp";
 import { Actions } from "../components/actions";
+import { useEvents } from "../../../data/api/hooks";
 
 export const columns: ColumnsType<Event> = [
   {
@@ -48,36 +48,22 @@ export const columns: ColumnsType<Event> = [
   },
 ];
 
-export const data: Event[] = [
-  {
-    id: "1",
-    title: "Start of the year",
-    type: EventType.GENERIC,
-    startDate: "2022-01-01",
-    endDate: "2022-12-01",
-    description: "This is an event about the start of this year",
-  },
-  {
-    id: "2",
-    title: "Mediagenix holiday",
-    type: EventType.HOLIDAY,
-    startDate: "2022-04-04",
-    endDate: "2022-04-05",
-    description: "Celebrating Mediagenix",
-  },
-];
 interface UseEventsTableValues {
   table: {
     columns: ColumnsType<Event>;
-    data: Event[];
+    events?: Event[];
+    eventsLoading: boolean;
   };
 }
 
 export const useEventsTable = (): UseEventsTableValues => {
+  const { data: events, isLoading: eventsLoading } = useEvents();
+
   return {
     table: {
       columns,
-      data,
+      events,
+      eventsLoading,
     },
   };
 };

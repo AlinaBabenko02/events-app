@@ -5,11 +5,12 @@ import "./styles.scss";
 
 export const EventsTable: React.FC = () => {
   const {
-    table: { columns, data },
+    table: { columns, events, eventsLoading },
   } = useEventsTable();
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={events} loading={eventsLoading} />
     </div>
   );
 };
