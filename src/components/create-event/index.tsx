@@ -17,10 +17,11 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
   const { mutate: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
 
   const handleSubmit = (values: EventFormFields) => {
+    const { date, ...newValues } = values;
     createEvent(
       {
         values: {
-          ...values,
+          ...newValues,
           startDate: values.date[0].toString(),
           endDate: values.date[1].toString(),
         },
