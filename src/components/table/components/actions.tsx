@@ -4,14 +4,18 @@ import { Button } from "antd";
 import { DeleteEventModal } from "./delete-event-modal";
 import { useToggleState } from "../../../data/utils/useToggleState";
 import { EditEventModal } from "./edit-event-modal";
+import { Event } from "../../../data/types";
 
-export const Actions: React.FC<{ id: string }> = ({ id }) => {
+export const Actions: React.FC<{ event: Event }> = ({ event }) => {
   const [editEventModalShown, setEditEventModalShown] = useToggleState(false);
   const [deleteEventModalShown, setDeleteEventModalShown] =
     useToggleState(false);
 
   const actions = [
-    { icon: <EditOutlined />, onClick: setEditEventModalShown },
+    {
+      icon: <EditOutlined />,
+      onClick: setEditEventModalShown,
+    },
     { icon: <DeleteOutlined />, onClick: setDeleteEventModalShown },
   ];
 
@@ -29,6 +33,7 @@ export const Actions: React.FC<{ id: string }> = ({ id }) => {
       <EditEventModal
         editEventModalShown={editEventModalShown}
         setEditEventModalShown={setEditEventModalShown}
+        event={event}
       />
       <DeleteEventModal
         deleteEventModalShown={deleteEventModalShown}

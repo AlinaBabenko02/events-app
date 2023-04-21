@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.11",
     "antd": "^5.4.3",
     "core-js": "^3.30.1",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",

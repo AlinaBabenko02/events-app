@@ -44,7 +44,7 @@ export const columns: ColumnsType<Event> = [
     dataIndex: "actions",
     key: "actions",
     align: "center",
-    render: (_, { id }) => <Actions id={id} />,
+    render: (_, event) => <Actions event={event} />,
   },
 ];
 
