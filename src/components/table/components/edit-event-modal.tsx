@@ -3,6 +3,7 @@ import { Form, Modal } from "antd";
 import dayjs from "dayjs";
 import { EventForm } from "../../shared/event-form";
 import { Event, EventFormFields } from "../../../data/types";
+import { useEditEvent } from "../../../data/api/hooks";
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -19,6 +20,10 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
 }) => {
   const [form] = Form.useForm();
 
+  const { mutate: editEvent, isLoading: isEditingEvent } = useEditEvent(
+    event.id
+  );
+
   const initialValues: EventFormFields = {
     title: event.title,
     type: event.type,
@@ -29,8 +34,17 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
     description: event.description,
   };
 
-  const handleSubmit = () => {
-    setEditEventModalShown();
+  const handleSubmit = (values: EventFormFields) => {
+    editEvent(
+      {
+        values: {
+          ...values,
+          startDate: values.date[0].toString(),
+          endDate: values.date[1].toString(),
+        },
+      },
+      { onSuccess: () => setEditEventModalShown() }
+    );
   };
 
   return (
@@ -47,6 +61,8 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
         onCancel={setEditEventModalShown}
         onOk={form.submit}
         okText="Edit"
+        okButtonProps={{ loading: isEditingEvent }}
+        cancelButtonProps={{ loading: isEditingEvent }}
       >
         <EventForm />
       </Modal>

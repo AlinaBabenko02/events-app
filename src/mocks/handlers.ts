@@ -23,4 +23,17 @@ export const handlers = [
       ctx.delay(1000)
     );
   }),
+
+  rest.patch("/events/:id", async (req, res, ctx) => {
+    const eventId = req.params.id;
+    const updatedEvent = await req.json();
+    const eventIndex = events.findIndex((event) => event.id === eventId);
+    events[eventIndex] = updatedEvent;
+
+    return res(
+      ctx.status(200),
+      ctx.body(JSON.stringify(updatedEvent)),
+      ctx.delay(1000)
+    );
+  }),
 ];

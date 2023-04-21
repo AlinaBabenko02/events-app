@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
-import { fetchEvents, createEvent } from "./actions-query";
+import { fetchEvents, createEvent, editEvent } from "./actions-query";
 import { eventsKeys } from "./hook-keys";
 import { Event as EventType, CreateEventBody } from "../types";
 
@@ -19,6 +19,22 @@ export const useCreateEvent = (): UseMutationResult<
 > => {
   const queryClient = useQueryClient();
   return useMutation(({ values }) => createEvent(values), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(eventsKeys.all());
+    },
+  });
+};
+
+export const useEditEvent = (
+  id: string
+): UseMutationResult<
+  EventType,
+  Error,
+  { values: CreateEventBody },
+  unknown
+> => {
+  const queryClient = useQueryClient();
+  return useMutation(({ values }) => editEvent(id, values), {
     onSuccess: () => {
       queryClient.invalidateQueries(eventsKeys.all());
     },
