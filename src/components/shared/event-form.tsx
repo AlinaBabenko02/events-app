@@ -1,4 +1,5 @@
 import React from "react";
+import { useIsMutating } from "react-query";
 import { Form, Input, Select, DatePicker } from "antd";
 import { EventType } from "../../data/enums";
 
@@ -19,6 +20,8 @@ const eventTypeOptions: eventTypeOption[] = [
 ];
 
 export const EventForm: React.FC = () => {
+  const isMutating = !!useIsMutating();
+
   return (
     <div>
       <Form.Item
@@ -26,14 +29,14 @@ export const EventForm: React.FC = () => {
         name="title"
         rules={[{ required: true, message: "Required" }]}
       >
-        <Input />
+        <Input disabled={isMutating} />
       </Form.Item>
       <Form.Item
         label="Type"
         name="type"
         rules={[{ required: true, message: "Required" }]}
       >
-        <Select>
+        <Select disabled={isMutating}>
           {eventTypeOptions.map((option) => (
             <Option value={option.value}>{option.label}</Option>
           ))}
@@ -44,10 +47,14 @@ export const EventForm: React.FC = () => {
         name="date"
         rules={[{ required: true, message: "Required" }]}
       >
-        <RangePicker format="YYYY-MM-DD" style={{ width: "100%" }} />
+        <RangePicker
+          format="YYYY-MM-DD"
+          style={{ width: "100%" }}
+          disabled={isMutating}
+        />
       </Form.Item>
       <Form.Item label="Description" name="description">
-        <TextArea rows={4} />
+        <TextArea rows={4} disabled={isMutating} />
       </Form.Item>
     </div>
   );

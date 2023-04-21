@@ -16,7 +16,7 @@ export const createEvent = async (
       "Content-Type": "application/json",
     },
   });
-  const eventResponse: EventType = await response.json();
+  const eventResponse = await response.json();
 
   return {
     ...eventResponse,
