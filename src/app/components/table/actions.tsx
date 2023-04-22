@@ -29,17 +29,20 @@ export const Actions: React.FC<{ event: Event }> = ({ event }) => {
           shape="circle"
         />
       ))}
-
-      <EditEventModal
-        editEventModalShown={editEventModalShown}
-        setEditEventModalShown={setEditEventModalShown}
-        event={event}
-      />
-      <DeleteEventModal
-        deleteEventModalShown={deleteEventModalShown}
-        setDeleteEventModalShown={setDeleteEventModalShown}
-        eventId={event.id}
-      />
+      {editEventModalShown && (
+        <EditEventModal
+          editEventModalShown={editEventModalShown}
+          setEditEventModalShown={setEditEventModalShown}
+          event={event}
+        />
+      )}
+      {deleteEventModalShown && (
+        <DeleteEventModal
+          deleteEventModalShown={deleteEventModalShown}
+          setDeleteEventModalShown={setDeleteEventModalShown}
+          eventId={event.id}
+        />
+      )}
     </>
   );
 };
