@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import type { ColumnsType, ColumnType } from "antd/es/table";
-import { Event } from "../../../data/types";
-import { EventTypeStamp } from "../components/event-type-stamp";
-import { Actions } from "../components/actions";
-import { useEvents, useEventSchema } from "../../../data/api/hooks";
-import { RenderSchemaPlaces } from "../../../data/enums";
+import { Event } from "../../data/types";
+import { EventTypeStamp } from "../components/table/event-type-stamp";
+import { Actions } from "../components/table/actions";
+import { RenderSchemaPlaces } from "../../data/enums";
+import { useEvents, useEventSchema } from "../../data/api/hooks";
 
 const columnRenderComponent: {
   [key: string]: (text: string, record: Event) => ReactNode;

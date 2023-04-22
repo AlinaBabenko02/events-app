@@ -1,14 +1,15 @@
 import React from "react";
-import { Input, Button } from "antd";
-import "./styles.scss";
-import { EventsTable } from "./table";
+import { Input, Button, Table } from "antd";
 import { useToggleState } from "../data/utils/useToggleState";
-import { CreateEventModal } from "./create-event";
+import { CreateEventModal } from "./components/modals/create-event-modal";
+import "./styles.scss";
+import { useEventsTable } from "./hooks/useEventsTable";
 
 const { Search } = Input;
 
 const App: React.FC = () => {
   const onSearch = (value: string) => console.log(value);
+  const { columns, events, loading } = useEventsTable();
 
   const [createEventModalShown, setCreateEventModalShown] =
     useToggleState(false);
@@ -27,7 +28,7 @@ const App: React.FC = () => {
             Create event
           </Button>
         </div>
-        <EventsTable />
+        <Table columns={columns} dataSource={events} loading={loading} />
       </div>
       {createEventModalShown && (
         <CreateEventModal

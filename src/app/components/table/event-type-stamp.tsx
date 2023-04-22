@@ -21,7 +21,7 @@ export const EventTypeStamp: React.FC<{ type: EventType }> = ({ type }) => {
     <Tag
       color={EventTypeStampColor[type]}
       bordered={false}
-      className="columnsStamp"
+      className="rootColumnsStamp"
     >
       {EventTypeStampLabel[type]}
     </Tag>

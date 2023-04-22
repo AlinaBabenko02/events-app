@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ConfigProvider } from "antd";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "./index.css";
-import App from "./components";
+import App from "./app";
 import reportWebVitals from "./reportWebVitals";
 import { antdTheme } from "./data/utils/theme";
 import { worker } from "./mocks/browser";

@@ -1,9 +1,9 @@
 import React from "react";
 import { useIsMutating } from "react-query";
 import { Form, Input, Select, DatePicker, Skeleton } from "antd";
-import { useEventSchema } from "../../data/api/hooks";
-import { EventTypeOption, SchemaField } from "../../data/types";
-import { InputComponents, RenderSchemaPlaces } from "../../data/enums";
+import { useEventSchema } from "../../../data/api/hooks";
+import { EventTypeOption, SchemaField } from "../../../data/types";
+import { InputComponents, RenderSchemaPlaces } from "../../../data/enums";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;

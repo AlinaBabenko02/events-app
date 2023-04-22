@@ -1,8 +1,8 @@
 import React from "react";
 import { Form, Modal } from "antd";
 import { EventForm } from "../shared/event-form";
-import { useCreateEvent } from "../../data/api/hooks";
-import { EventFormFields } from "../../data/types";
+import { useCreateEvent } from "../../../data/api/hooks";
+import { EventFormFields } from "../../../data/types";
 
 interface CreateEventModalProps {
   createEventModalShown: boolean;

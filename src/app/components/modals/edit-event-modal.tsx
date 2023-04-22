@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Modal } from "antd";
 import dayjs from "dayjs";
-import { EventForm } from "../../shared/event-form";
+import { EventForm } from "../shared/event-form";
 import { Event, EventFormFields } from "../../../data/types";
 import { useEditEvent } from "../../../data/api/hooks";
 
