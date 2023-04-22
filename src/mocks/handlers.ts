@@ -14,9 +14,18 @@ export const handlers = [
   }),
 
   rest.get("/events", (req, res, ctx) => {
+    const queryParams = new URLSearchParams(req.url.search);
+    const searchParam = queryParams.get("search")!;
+
+    const filteredEvents = events.filter(
+      (event) =>
+        event.title.includes(searchParam) ||
+        event.description.includes(searchParam)
+    );
+
     return res(
       ctx.status(200),
-      ctx.body(JSON.stringify(events)),
+      ctx.body(JSON.stringify(filteredEvents)),
       ctx.delay(1000)
     );
   }),

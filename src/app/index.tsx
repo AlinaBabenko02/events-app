@@ -8,11 +8,13 @@ import { useEventsTable } from "./hooks/useEventsTable";
 const { Search } = Input;
 
 const App: React.FC = () => {
-  const onSearch = (value: string) => console.log(value);
-  const { columns, events, loading } = useEventsTable();
-
   const [createEventModalShown, setCreateEventModalShown] =
     useToggleState(false);
+
+  const {
+    table: { columns, events, loading },
+    search: { searchValue, setSearchValue },
+  } = useEventsTable();
 
   return (
     <>
@@ -20,7 +22,9 @@ const App: React.FC = () => {
         <div className="rootHeader">
           <Search
             placeholder="Search events"
-            onSearch={onSearch}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onSearch={setSearchValue}
             enterButton
             className="rootHeaderSearch"
           />

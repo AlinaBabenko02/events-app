@@ -17,8 +17,12 @@ import { Event as EventType, CreateEventBody, SchemaField } from "../types";
 export const useEventSchema = () =>
   useQuery<SchemaField[], Error>(eventsKeys.schema(), fetchEventSchema);
 
-export const useEvents = () =>
-  useQuery<EventType[], Error>(eventsKeys.all(), fetchEvents);
+export const useEvents = (params: string) => {
+  const queryParams = `search=${params}`;
+  return useQuery<EventType[], Error>(eventsKeys.list(queryParams), () =>
+    fetchEvents(queryParams)
+  );
+};
 
 export const useCreateEvent = (): UseMutationResult<
   EventType,

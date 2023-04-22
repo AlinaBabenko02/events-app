@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import { Event } from "../../data/types";
 import { EventTypeStamp } from "../components/table/event-type-stamp";
@@ -32,14 +32,22 @@ const actionsColumn: ColumnType<Event> = {
 };
 
 interface UseEventsTableValues {
-  columns: ColumnsType<Event>;
-  events?: Event[];
-  loading: boolean;
+  table: {
+    columns: ColumnsType<Event>;
+    events?: Event[];
+    loading: boolean;
+  };
+  search: {
+    searchValue: string;
+    setSearchValue: (value: string) => void;
+  };
 }
 
 export const useEventsTable = (): UseEventsTableValues => {
+  const [searchValue, setSearchValue] = useState<string>("");
+
   const { data: eventSchema, isLoading: eventSchemaLoading } = useEventSchema();
-  const { data: events, isLoading: eventsLoading } = useEvents();
+  const { data: events, isLoading: eventsLoading } = useEvents(searchValue);
   const loading = eventSchemaLoading || eventsLoading;
 
   const columns: ColumnsType<Event> = eventSchema
@@ -59,8 +67,11 @@ export const useEventsTable = (): UseEventsTableValues => {
   columns.push(actionsColumn);
 
   return {
-    columns,
-    events,
-    loading,
+    table: {
+      columns,
+      events,
+      loading,
+    },
+    search: { searchValue, setSearchValue },
   };
 };
