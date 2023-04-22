@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, Modal } from "antd";
+import { Alert, Form, Modal } from "antd";
 import { EventForm } from "../shared/event-form";
 import { useCreateEvent } from "../../../data/api/hooks";
 import { EventFormFields } from "../../../data/types";
+import { useToggleState } from "../../../data/utils/useToggleState";
 
 interface CreateEventModalProps {
   createEventModalShown: boolean;
@@ -15,6 +16,8 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
 }) => {
   const [form] = Form.useForm();
   const { mutate: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
+
+  const [alertShown, setAlertShown] = useToggleState(false);
 
   const handleSubmit = (values: EventFormFields) => {
     const { date, ...newValues } = values;
@@ -36,6 +39,7 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
       form={form}
       name="create-event"
       onFinish={handleSubmit}
+      onFinishFailed={setAlertShown}
     >
       <Modal
         title="Create event"
@@ -47,6 +51,12 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
         cancelButtonProps={{ loading: isCreatingEvent }}
       >
         <EventForm />
+        {alertShown && (
+          <Alert
+            message="There are errors in the form. Please correct before saving."
+            type="error"
+          />
+        )}
       </Modal>
     </Form>
   );
