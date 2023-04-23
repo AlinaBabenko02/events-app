@@ -2,7 +2,7 @@ import { rest } from "msw";
 import { getUniqueId } from "./../data/utils/getUniqueId";
 import { eventSchema, eventsData } from "./data";
 
-let events = eventsData;
+export let events = eventsData;
 
 export const handlers = [
   rest.get("/event-schema", (req, res, ctx) => {

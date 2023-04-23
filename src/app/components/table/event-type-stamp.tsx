@@ -9,7 +9,7 @@ const EventTypeStampColor = {
   [EventType.LAUNCH]: "gold",
 };
 
-const EventTypeStampLabel = {
+export const EventTypeStampLabel = {
   [EventType.COMPETITOR]: "Competitor event",
   [EventType.GENERIC]: "Generic event",
   [EventType.HOLIDAY]: "Public holidays",
