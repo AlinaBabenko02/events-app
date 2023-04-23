@@ -1,4 +1,5 @@
 import React from "react";
+import { useIsFetching } from "react-query";
 import { Alert, Form, Modal } from "antd";
 import { EventForm } from "../shared/event-form";
 import { useCreateEvent } from "../../../data/api/hooks";
@@ -16,7 +17,8 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
 }) => {
   const [form] = Form.useForm();
   const { mutate: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
-
+  const isFetching = !!useIsFetching();
+  const isLoading = isCreatingEvent || isFetching;
   const [alertShown, setAlertShown] = useToggleState(false);
 
   const handleSubmit = (values: EventFormFields) => {
@@ -47,8 +49,10 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
         onCancel={setCreateEventModalShown}
         onOk={form.submit}
         okText="Create"
-        okButtonProps={{ loading: isCreatingEvent }}
-        cancelButtonProps={{ loading: isCreatingEvent }}
+        okButtonProps={{
+          loading: isLoading,
+        }}
+        cancelButtonProps={{ loading: isLoading }}
       >
         <EventForm />
         {alertShown && (
