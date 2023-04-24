@@ -2,8 +2,8 @@ import React from "react";
 import { Input, Button, Table } from "antd";
 import { useToggleState } from "../data/utils/useToggleState";
 import { CreateEventModal } from "./components/modals/create-event-modal";
-import "./styles.scss";
 import { useEventsTable } from "./hooks/useEventsTable";
+import "./styles.scss";
 
 const { Search } = Input;
 

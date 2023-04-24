@@ -16,10 +16,11 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({
   setCreateEventModalShown,
 }) => {
   const [form] = Form.useForm();
-  const { mutate: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
-  const isFetching = !!useIsFetching();
-  const isLoading = isCreatingEvent || isFetching;
   const [alertShown, setAlertShown] = useToggleState(false);
+  const { mutate: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
+
+  const isFetching: boolean = !!useIsFetching();
+  const isLoading: boolean = isCreatingEvent || isFetching;
 
   const handleSubmit = (values: EventFormFields) => {
     const { date, ...newValues } = values;

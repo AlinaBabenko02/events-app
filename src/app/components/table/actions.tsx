@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { DeleteEventModal } from "../modals/delete-event-modal";
@@ -11,7 +11,7 @@ export const Actions: React.FC<{ event: Event }> = ({ event }) => {
   const [deleteEventModalShown, setDeleteEventModalShown] =
     useToggleState(false);
 
-  const actions = [
+  const actions: { icon: ReactElement; onClick: () => void }[] = [
     {
       icon: <EditOutlined />,
       onClick: setEditEventModalShown,

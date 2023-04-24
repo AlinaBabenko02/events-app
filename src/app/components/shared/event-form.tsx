@@ -36,7 +36,7 @@ const fieldToInputComponent: {
 
 export const EventForm: React.FC = () => {
   const { data: eventSchema, isLoading: eventSchemaLoading } = useEventSchema();
-  const isMutating = !!useIsMutating();
+  const isMutating: boolean = !!useIsMutating();
 
   return !eventSchemaLoading ? (
     <div>
