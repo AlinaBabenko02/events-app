@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mediagenix-test/static/css/main.7b904129.css",
+    "main.js": "/mediagenix-test/static/js/main.e4aef963.js",
+    "static/js/111.145f4251.chunk.js": "/mediagenix-test/static/js/111.145f4251.chunk.js",
+    "index.html": "/mediagenix-test/index.html",
+    "main.7b904129.css.map": "/mediagenix-test/static/css/main.7b904129.css.map",
+    "main.e4aef963.js.map": "/mediagenix-test/static/js/main.e4aef963.js.map",
+    "111.145f4251.chunk.js.map": "/mediagenix-test/static/js/111.145f4251.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7b904129.css",
+    "static/js/main.e4aef963.js"
+  ]
+}
